@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--    <bean id = "alien1" class="org.example.Alien" autowire="byName">    autowire="byName" searches for the bean id with the same name as that of the reference variable to be set in the Alien class&ndash;&gt;-->
+    <bean id = "alien1" class="org.example.Alien" autowire="byType">    <!-- autowire="byType" searches for the bean of matching type. In this case the Computer com can be set using either Laptop or Desktop type -->
+        <property name="age" value="21" />
+        <property name="com" ref="com1" />       <!-- When you have the same name for the reference variable and bean id you can use autowire="byName" -->
+    </bean>
+
+    <bean id = "com1" class = "org.example.Laptop" >
+    </bean>
+
+    <bean id = "com" class = "org.example.Desktop" primary="true" lazy-init="true">       <!-- When there is more than 1 matching type using autowire="byType", the primary="true" bean will be set to that ref variable-->
+    </bean>
+
+    <bean id = "desk" class = "org.example.Desktop" lazy-init="true">     <!-- WKT all singleton scoped beans will be created when the application loads i.e, when the container is created. A lazy-init bean will be created only when you need it. i.e, - either when getBean() is called for this bean or if a non-lazy bean is dependent on this bean -->
+    </bean>
+
+    <bean id = "alien2" class="org.example.Alien">
+        <property name="age" value="21" />
+        <property name="com">
+            <bean id="innerComBean" class="org.example.Desktop"></bean>      <!-- This is an inner bean which can only be accessed by the outer Alien bean "alien2" -->
+        </property>
+    </bean>
+</beans>

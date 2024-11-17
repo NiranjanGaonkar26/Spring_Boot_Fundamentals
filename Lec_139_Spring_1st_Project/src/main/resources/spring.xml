@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--    <bean id = "alien" class = "org.example.Alien" scope = "prototype"></bean>-->
+    <bean id = "alien" class = "org.example.Alien">
+        <property name="age" value="34"></property>       <!-- Spring way of setting a default value to a primitive property, in this case the age variable of the Alien class. This is also known as Setter injection -->
+        <property name="lapObj" ref = "laptop"></property>      <!-- Spring way of setting a default value to a reference property, in this case the lapObj reference variable of the Alien class. ref = "laptop" is actually mapped/ wired with the Laptop class bean with id = "laptop" -->
+    </bean>
+
+    <bean id = "alien1" class="org.example.Alien">
+        <constructor-arg index="1" ref="laptop"></constructor-arg>  <!-- Alien Constructor injection. index="1" means the 1st argument in the Alien constructor which is the Laptop Object-->
+        <constructor-arg index="0" value="25"></constructor-arg>
+    </bean>
+
+    <bean id = "laptop" class = "org.example.Laptop">
+    </bean>
+</beans>
